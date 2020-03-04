@@ -1,0 +1,112 @@
+
+<mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Seleccion de mesa</ng-template>
+
+        <div class="row">
+            <div class="col-8  align-self-start " style="height: 100%" >
+                <div class="row">
+                    <div class="col-6" style="height: 100%">
+                        <div class="row">
+                            <div class="col-12 groove location4">
+                                <p>Sala 4</p>
+                                <span *ngFor="let table of tables" >
+                                    <span  class="restaurant-table" *ngIf="table.location=='SALON CUATRO'">
+                                        <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
+                                    </span>
+                                </span>   
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 groove location3">
+                                <p>Sala 3</p>
+                                <span *ngFor="let table of tables" >
+                                    <span  class="restaurant-table" *ngIf="table.location=='SALON TRES'">
+                                        <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
+                                    </span>
+                                </span>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 groove  location2">
+                        <p>Sala 2</p>
+                        <span *ngFor="let table of tables" >
+                            <span  class="restaurant-table" *ngIf="table.location=='SALON DOS'">
+                                <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
+                            </span>
+                        </span>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 align-self-end groove location1" >
+              <p>Sala 1</p>
+              <span *ngFor="let table of tables" >
+                  <span  class="restaurant-table" *ngIf="table.location=='SALON UNO'">
+                      <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
+                  </span>
+              </span>   
+              <br>         
+            </div>
+        </div>
+        
+      </form>
+     
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Tomar Órden</ng-template>
+      <mat-form-field class="autocomplete">
+            <input matInput placeholder="Ingrese producto" aria-label="Producto" [matAutocomplete]="auto" [formControl]="productCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let product of filteredProduct | async" [value]="product.product_name"  (click)="addProduct(product) ">
+                <span><strong>{{product.product_name}}</strong></span> |
+                <small>$ {{product.price}}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-card>
+            <mat-card-header class="card-header">
+              <mat-card-title><mat-icon>speaker_notes</mat-icon> {{selectedTable.table_name}}</mat-card-title>
+              <mat-card-subtitle>Detalle órden de venta</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>               
+              <!-- drag & drop-->
+              <div cdkDropListGroup>
+                <div class="drag-drop-container">
+                  <div
+                    cdkDropList
+                    [cdkDropListData]="saleOrderList"
+                    class="drag-drop-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="drag-drop-box" *ngFor="let product of saleOrderList" cdkDrag>
+                      <span align="left">{{product.product_name}}</span>
+                      <span align="right">$ {{product.price}}</span>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div align="right">
+                <div class="drag-drop-trash"
+                    cdkDropList
+                    [cdkDropListData]="trash"                    
+                    (cdkDropListDropped)="drop($event)">
+                    <mat-icon>restore_from_trash</mat-icon>
+                  </div>
+                </div>
+                </div>
+                    
+
+            </mat-card-content>
+          </mat-card>
+      <br>        
+
+
+
+
+      <div>
+        <button mat-button mat-raised-button color="warn" class="float-left" matStepperPrevious>Volver</button> 
+        <button mat-button mat-raised-button color="primary" class="float-right" (click)="sendSaleOrder() ">Enviar pedido</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>

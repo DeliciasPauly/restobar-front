@@ -1,0 +1,101 @@
+.autocomplete {
+   width: 100%;
+}
+
+.mat-option {
+    font-size: 13px !important;
+}
+
+.card-header {
+    background-color: #3f51b5;
+}  
+
+.groove {
+
+    border: 4px solid #eea13c;
+    background: #eebe3c;
+}
+
+.restaurant-table{
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.location1{
+    height: auto;
+}
+.location2{
+    height: auto;
+}
+.location3{
+    height: auto;
+}
+.location4{
+    height: auto;
+}
+
+/* Drag & drop*/
+.drag-drop-container {
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .drag-drop-list {
+    border: solid 1px #f6fcff;
+    background: #84bbf33f;
+    border-radius: 4px;
+    overflow: hidden;
+    display: block;
+  }
+  
+  .drag-drop-box {
+    padding: 0.75rem; 
+    border-bottom: solid 1px #f6fcff;
+    color: #6c7ac8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: #84bbf33f;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .drag-drop-box:last-child {
+    border: none;
+  }
+  
+  .drag-drop-trash {
+    margin: 10px;
+    min-height: 50px;
+    width: 100px;
+    border: solid 1px #df7e00;
+    background: #e7bc2f;
+    border-radius: 6px;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+  }
+
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .drag-drop-list.cdk-drop-list-dragging .drag-drop-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
