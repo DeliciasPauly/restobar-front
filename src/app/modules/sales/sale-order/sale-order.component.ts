@@ -32,7 +32,6 @@ export class SaleOrderComponent implements OnInit {
   saleOrderList: Product[] = [];
   saleOrderPending: SaleOrder[] = [];
 
-
   selectedTable= new Table();
 
   constructor(private formBuilder: FormBuilder, private router: Router, private salesService: SalesService) {
@@ -59,9 +58,39 @@ export class SaleOrderComponent implements OnInit {
 
     this.getAllTables();
     this.getAllProducts();
-    this.getPendingOrder();
   }
 
+  getAllTables(){    
+    this.salesService.getAllTables().subscribe( data => {       
+      this.tables = data ;
+      //console.log(JSON.stringify(this.tables));      
+    });
+  }
+
+  getAllProducts(){    
+    this.salesService.getAllProducts().subscribe( data => {
+      this.products = data;
+      //console.log('getAllProducts: '+JSON.stringify(this.products));      
+    });
+  }
+
+  addOrder(table){
+    //console.log('addOrder: '+JSON.stringify(table)); 
+    this.selectedTable.table_name = table;
+    this.saleOrderList = [];
+    this.getPendingOrderTable(table);
+  }
+
+  getPendingOrderTable(table: String){    
+    this.salesService.getPendingOrderTable(table).subscribe( data => {         
+      // recorremos el array detalle de orden
+      data.forEach((object) => {        
+        let product = new Product(object.product_name, object.price);
+        this.addProduct(product);
+      });  
+    });
+  }
+  
   addProduct(product){
     //console.log('product: ', product );
     this.saleOrderList.push(product);
@@ -73,64 +102,15 @@ export class SaleOrderComponent implements OnInit {
     this.saleOrderList = this.saleOrderList.filter(x => x != product);
   }
 
-  getAllTables(){    
-    this.salesService.getAllTables().subscribe( data => {       
-      this.tables = data ;
-      //console.log(JSON.stringify(this.tables));      
-    });
-  }
-
-  getPendingOrder(){    
-    this.salesService.getPendingOrder().subscribe( data => {       
-      let saleOrder: SaleOrder[] = [];    
-      let auxSaleOrders: SaleOrder[];
-      let auxSaleOrder: SaleOrder;
-
-      // recorremos el array
-      data.forEach((object) => {
-        // obtenemos la venta si ya esta en el array
-        auxSaleOrders = saleOrder.filter((formula) => formula.sale_id === object.sale_id);
-
-        auxSaleOrder = auxSaleOrders.length === 0 ? undefined : auxSaleOrders[0];
-      // si no existe creamos el array
-        if (!auxSaleOrder) {
-          auxSaleOrder = new SaleOrder(object.sale_id, object.table_name, object.status, object.sale_date, object.total_sale, object.tip);
-          saleOrder.push(auxSaleOrder);
-        }
-
-        // si corresponde a la misma venta agregamos el detalle
-        if (auxSaleOrder.saleOrderDetail.filter((detail) => detail.sale_id === object.sale_id)) {
-          auxSaleOrder.addSaleOrderDetail(new SaleOrderDetail(object.sale_detail_id, object.sale_id, object.product_name, object.price, object.quantity));
-        }
-
-      });
-      this.saleOrderPending = saleOrder;    
-      //console.log('getAllProducts: '+JSON.stringify(this.saleOrderPending));   
-    });
-  }
-  
-  getAllProducts(){    
-    this.salesService.getAllProducts().subscribe( data => {
-      this.products = data;
-      //console.log('getAllProducts: '+JSON.stringify(this.products));      
-    });
-  }
-
-  addOrder(table){
-    //console.log('addOrder: '+JSON.stringify(table)); 
-    this.selectedTable = table;
-  }
-
   sendSaleOrder(){
     let saleOrder = new SaleOrder();
     let saleOrderDetailList: SaleOrderDetail[] = [];
     
     saleOrder.sale_id = 0;
     saleOrder.table_name = this.selectedTable.table_name;
-    saleOrder.status = 'PENDING'
-    saleOrder.total_sale = 50000;
-    saleOrder.tip = 5000;
-
+    saleOrder.status='PENDING';
+    saleOrder.total_sale=0;
+    
     this.saleOrderList.forEach(data => {
       let saleOrderDetail = new SaleOrderDetail();
       saleOrderDetail.sale_detail_id = 0;

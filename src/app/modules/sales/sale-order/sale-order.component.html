@@ -3,55 +3,40 @@
     <mat-step [stepControl]="">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Seleccion de mesa</ng-template>
+                
+        <div class="local">
+          <div class="img-responsive">
+            <div class="chairs">
+              <div class="row">
+                <div class="col-12" ><button class="chair button" (click)="addOrder('SILLA 1')" matStepperNext><p>S1</p></button></div>
+                <div class="col-12" ><button class="chair button" (click)="addOrder('SILLA 2')" matStepperNext><p>S2</p></button></div>
+                <div class="col-12" ><button class="chair button" (click)="addOrder('SILLA 3')" matStepperNext><p>S3</p></button></div>
+                <div class="col-12" ><button class="chair button" (click)="addOrder('SILLA 4')" matStepperNext><p>S4</p></button></div>
+              </div>
+            </div>
 
-        <div class="row">
-            <div class="col-8  align-self-start " style="height: 100%" >
-                <div class="row">
-                    <div class="col-6" style="height: 100%">
-                        <div class="row">
-                            <div class="col-12 groove location4">
-                                <p>Sala 4</p>
-                                <span *ngFor="let table of tables" >
-                                    <span  class="restaurant-table" *ngIf="table.location=='SALON CUATRO'">
-                                        <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
-                                    </span>
-                                </span>   
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 groove location3">
-                                <p>Sala 3</p>
-                                <span *ngFor="let table of tables" >
-                                    <span  class="restaurant-table" *ngIf="table.location=='SALON TRES'">
-                                        <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
-                                    </span>
-                                </span>   
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 groove  location2">
-                        <p>Sala 2</p>
-                        <span *ngFor="let table of tables" >
-                            <span  class="restaurant-table" *ngIf="table.location=='SALON DOS'">
-                                <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
-                            </span>
-                        </span>  
-                    </div>
-                </div>
-            </div>
-            <div class="col-4 align-self-end groove location1" >
-              <p>Sala 1</p>
-              <span *ngFor="let table of tables" >
-                  <span  class="restaurant-table" *ngIf="table.location=='SALON UNO'">
-                      <button mat-fab color="warn" (click)="addOrder(table)" matStepperNext>{{table.table_name}}</button>
-                  </span>
-              </span>   
-              <br>         
-            </div>
-        </div>
-        
-      </form>
-     
+            <div>
+              <div class="tables row">
+                  <div class="col-6" style="padding-left: 0px;padding-right: 0px;" > 
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 1')" matStepperNext><p>M1</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 2')" matStepperNext><p>M2</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 3')" matStepperNext><p>M3</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 4')" matStepperNext><p>M4</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 5')" matStepperNext><p>M5</p></button></div>
+                  </div>
+                  <div class="col-6" style="padding-left: 2px;padding-right: 0px;" >
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 6')" matStepperNext><p>M6</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 7')" matStepperNext><p>M7</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 8')" matStepperNext><p>M8</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 9')" matStepperNext><p>M9</p></button></div>
+                    <div class="col-12" ><button class="table button" (click)="addOrder('MESA 10')" matStepperNext><p>M10</p></button></div>
+                  </div>                
+              </div>              
+            </div>  
+          </div>   
+
+        </div>        
+      </form>     
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Tomar Órden</ng-template>
@@ -81,29 +66,24 @@
                     (cdkDropListDropped)="drop($event)">
                     <div class="drag-drop-box" *ngFor="let product of saleOrderList" cdkDrag>
                       <span align="left">{{product.product_name}}</span>
-                      <span align="right">$ {{product.price}}</span>
+                      <span align="right">${{product.price}}</span>
                     </div>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
                 <div align="right">
-                <div class="drag-drop-trash"
-                    cdkDropList
-                    [cdkDropListData]="trash"                    
-                    (cdkDropListDropped)="drop($event)">
-                    <mat-icon>restore_from_trash</mat-icon>
+                  <div class="drag-drop-trash"
+                      cdkDropList
+                      [cdkDropListData]="trash"                    
+                      (cdkDropListDropped)="drop($event)">                      
+                      <div class="trash"><br><p>Arrastrar aqui</p></div>                      
                   </div>
                 </div>
-                </div>
-                    
+              </div>                    
 
             </mat-card-content>
           </mat-card>
       <br>        
-
-
-
-
       <div>
         <button mat-button mat-raised-button color="warn" class="float-left" matStepperPrevious>Volver</button> 
         <button mat-button mat-raised-button color="primary" class="float-right" (click)="sendSaleOrder() ">Enviar pedido</button>

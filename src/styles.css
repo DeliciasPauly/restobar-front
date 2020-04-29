@@ -1,1 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+.mat-expansion-panel-header-description{
+    display: inline !important;  
+    color:#6c7ac8 !important;    
+}

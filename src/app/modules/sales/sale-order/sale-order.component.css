@@ -8,6 +8,7 @@
 
 .card-header {
     background-color: #3f51b5;
+    height: 75px;
 }  
 
 .groove {
@@ -63,21 +64,105 @@
     font-size: 12px;
     font-weight: bold;
   }
+
+
+/*  css imagen */
+@media (max-width: 575.98px) {
+  .local{
+    position:absolute;
+    width: 320px;       
+  }
+  .img-responsive{
+    background-image: url(../../../../assets/images/local.png);
+    background-repeat: no-repeat;    
+    width: 100%;  
+    height: 100%;
+  } 
+  .chairs{
+    height: 160px;
+    padding-top: 25px;
+    padding-left: 80px;
+  }
+  .chair{
+    background: url(../../../../assets/images/chair.png);  
+    background-repeat: no-repeat;
+    height: 35px;
+  }
+  .tables{
+    width: 170px;
+    padding-top: 6px;
+    padding-left: 10px;   
+  }  
+  .table{
+    background: url(../../../../assets/images/table.png);  
+    background-repeat: no-repeat;
+    width: 72px;  
+    height: 50px;   
+  } 
+   
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+    
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
   
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  
+}
+@media (min-width: 1200px) {
+  
+}
+
+
+/*  button action */
+.button {
+  border: none;
+}
+.button:hover {
+  background-color: #1fb81f31;  
+  transform: translateY(4px);
+}
+.chair.button p {
+  color: #ecd0c4;
+  font-weight: bold;
+  padding-top: 0px;
+  padding-left: 15px;
+}
+.table.button p {
+  color: #ecd0c4;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-left: 32px;
+}
+
+.trash{
+  background: url(../../../../assets/images/trash.png);  
+  background-repeat: no-repeat;
+  width: 50px;  
+  height: 50px;  
+  margin-left: 25px;
+}
+
+.trash p{
+  color: #646464;
+  font-weight: bold;
+  font-style: oblique;
+}
   .drag-drop-box:last-child {
     border: none;
   }
   
   .drag-drop-trash {
     margin: 10px;
-    min-height: 50px;
+    min-height: 62px;
     width: 100px;
     border: solid 1px #df7e00;
     background: #e7bc2f;
     border-radius: 6px;
     overflow: hidden;
     display: block;
-    text-align: center;
+    text-align: center; 
   }
 
   .cdk-drag-preview {
@@ -98,4 +183,12 @@
   
   .drag-drop-list.cdk-drop-list-dragging .drag-drop-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .mat-card-title{
+    color: #b9e4fa;
+    font-weight: bold;
+  }
+  .mat-card-subtitle{
+    color: #f6fcff;
   }

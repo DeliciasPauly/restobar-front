@@ -8,42 +8,30 @@
           <mat-card-subtitle>Seleccione para más detalle</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          
-
-                <mat-accordion>
-                        <mat-expansion-panel>
-                          <mat-expansion-panel-header>
-                            <mat-panel-title>
-                              Mesa 1
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                Precio $ 9.000
-                            </mat-panel-description>
-                          </mat-expansion-panel-header>
-                          
-                          detalle
-                          
-                        </mat-expansion-panel>
-                        <mat-expansion-panel (opened)="panelOpenState = true"
-                                             (closed)="panelOpenState = false">
-                          <mat-expansion-panel-header>
-                            <mat-panel-title>
-                              Mesa
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                Precio $ 8.000
-                            </mat-panel-description>
-                          </mat-expansion-panel-header>
-                    
-                          detalle
-                    
-                        </mat-expansion-panel>
-                      </mat-accordion>
+          <mat-accordion >
+            <mat-expansion-panel *ngFor="let order of saleOrderPending">
+              <mat-expansion-panel-header class="order-title">
+                <mat-panel-title>{{order.table_name}}</mat-panel-title>
+                <mat-panel-description  align="right">$ {{order.total_sale + order.tip}}</mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="order-detail" *ngFor="let detail of order.saleOrderDetail">
+                  <span align="left">{{detail.product_name}}</span>
+                  <span align="right">$ {{detail.price}}</span>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-9">
+                  <mat-checkbox class="float-right" [(ngModel)]="payTip" (change)="getPayTip(order)"><strong>Propina</strong></mat-checkbox>
+                </div>
+                <div class="col-3">
+                  <button mat-button mat-raised-button color="primary" class="float-right" (click)="openDialog(order)">Pagar</button>
+                </div>
+              </div>              
+            </mat-expansion-panel>
+          </mat-accordion>
 
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
         </mat-card-actions>
       </mat-card>
       
